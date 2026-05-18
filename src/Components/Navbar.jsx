@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import logo from "../../public/Assets/logo.png";
 const Navbar = () => {
-  const isLoggedIn = true;
+  const isLoggedIn = false;
   return (
     <>
       <nav>
@@ -42,34 +42,43 @@ const Navbar = () => {
             </ul>
           </div>
           <div className="flex-none">
-            <div className="dropdown dropdown-end">
-              <div
-                tabIndex={0}
-                role="button"
-                className="btn btn-ghost btn-circle avatar"
+            {!isLoggedIn ? (
+              <Link
+                href="/login"
+                className="btn btn-primary btn-sm px-5 rounded-md font-medium"
               >
-                <div className="w-10 rounded-full">
-                  {/* <img
+                Log In
+              </Link>
+            ) : (
+              <div className="dropdown dropdown-end">
+                <div
+                  tabIndex={0}
+                  role="button"
+                  className="btn btn-ghost btn-circle avatar border border-base-300"
+                >
+                  <div className="w-10 rounded-full bg-base-200 flex items-center justify-center">
+                    {/* <img
                   alt="Tailwind CSS Navbar component"
                   src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
                 /> */}
+                  </div>
                 </div>
+                <ul
+                  tabIndex="-1"
+                  className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+                >
+                  <li>
+                    <a className="justify-between">Profile</a>
+                  </li>
+                  <li>
+                    <a>Settings</a>
+                  </li>
+                  <li>
+                    <a>Logout</a>
+                  </li>
+                </ul>
               </div>
-              <ul
-                tabIndex="-1"
-                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
-              >
-                <li>
-                  <a className="justify-between">Profile</a>
-                </li>
-                <li>
-                  <a>Settings</a>
-                </li>
-                <li>
-                  <a>Logout</a>
-                </li>
-              </ul>
-            </div>
+            )}
           </div>
         </div>
       </nav>
