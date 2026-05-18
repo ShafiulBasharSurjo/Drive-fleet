@@ -18,7 +18,9 @@ const Navbar = () => {
             </div>
           </div>
           <div className="flex-1">
-            <a className="btn btn-ghost text-xl">DriveFleet</a>
+            <h2 className="text-2xl font-bold tracking-tight mb-3">
+              Drive<span className="text-primary">Fleet</span>
+            </h2>
           </div>
 
           <div className="flex-none hidden md:flex mr-4">
