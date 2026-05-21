@@ -62,7 +62,7 @@ export default function ExploreCarsPage() {
           onChange={(e) => setType(e.target.value)}
           className="select select-bordered rounded-xl sm:w-48"
         >
-          <option value="">All types</option>
+          <option value="">Car types</option>
           {CAR_TYPES.map((t) => (
             <option key={t} value={t}>
               {t}
