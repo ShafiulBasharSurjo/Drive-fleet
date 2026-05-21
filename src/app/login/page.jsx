@@ -44,7 +44,7 @@ export default function LoginPage() {
         </p>
 
         {error && (
-          <div className="alert alert-error text-sm mb-4 py-2">{error}</div>
+          <div className="alert alert-error text-sm mb-3.5 py-2">{error}</div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
