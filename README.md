@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# DriveFleet — Premium Car Rental Platform
 
-## Getting Started
+**Live site:** [Add your Vercel URL after deployment](https://your-drivefleet.vercel.app)
 
-First, run the development server:
+DriveFleet is a full-stack car rental platform where users can explore vehicles, book rentals, manage listings, and authenticate securely with JWT cookies.
+
+## Features
+
+- **Secure authentication** — Email/password registration with validation, JWT stored in HTTP-only cookies, and Google sign-in
+- **Explore & search fleet** — Browse all listings, search by car name (`$regex`), and filter by vehicle type (`$in`)
+- **Book with confidence** — Modal booking flow with driver option, special notes, and automatic `booking_count` increment via MongoDB `$inc`
+- **Owner dashboard** — Add, update, and delete your own car listings with confirmation modals
+- **My Bookings** — View rental history with total price, linked booking dates, and trip details
+- **Responsive luxury UI** — Mobile, tablet, and desktop layouts with DaisyUI, consistent branding, and custom 404 page
+
+## Tech Stack
+
+- **Client:** Next.js 16, React 19, Tailwind CSS 4, DaisyUI, React Toastify
+- **Server:** Express, MongoDB, JWT, bcrypt, Google Auth Library
+- **Deploy:** Vercel (client) + Render/Railway (API)
+
+## Local Setup
+
+### Server (`driveFleet-server`)
 
 ```bash
+cd driveFleet-server
+npm install
+cp .env.example .env
+# Set MONGODB_URI, JWT_SECRET, CLIENT_URL, GOOGLE_CLIENT_ID
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Client (`drivefleet`)
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+```bash
+cd drivefleet
+npm install
+cp .env.example .env.local
+# Set NEXT_PUBLIC_API_URL and NEXT_PUBLIC_GOOGLE_CLIENT_ID
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Open [http://localhost:3000](http://localhost:3000).
 
-## Learn More
+## Deployment Notes
 
-To learn more about Next.js, take a look at the following resources:
+1. Set `CLIENT_URL` on the server to your Vercel domain (e.g. `https://drivefleet.vercel.app`).
+2. Set `NEXT_PUBLIC_API_URL` on Vercel to your Render API URL.
+3. Use the same Google OAuth client ID on both sides; add authorized origins for production URLs.
+4. Enable `credentials: true` CORS — already configured on the API.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Assignment
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+CAT_05 — DriveFleet Car Rental Platform (Programming Hero)

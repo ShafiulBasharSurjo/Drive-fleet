@@ -84,7 +84,7 @@ const Banner = () => {
 
           <div className="flex flex-wrap gap-3">
             <Link
-              href="/cars"
+              href="/Cars"
               className="btn btn-primary btn-md px-7 rounded-md font-semibold gap-2"
             >
               Explore Cars <FiArrowRight size={16} />

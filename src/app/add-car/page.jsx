@@ -1,193 +1,154 @@
 "use client";
-import React, { useState } from "react";
-import { toast } from "react-toastify";
-import {
-  FieldError,
-  Input,
-  TextArea,
-  TextField,
-  Button,
-  Label,
-} from "@heroui/react";
 
-const AddCarPage = () => {
-  const [isPending, setIsPending] = useState(false);
+import { useState } from "react";
+import { toast } from "react-toastify";
+import PrivateRoute from "@/Components/PrivateRoute";
+import { API_URL } from "@/lib/api";
+
+function AddCarForm() {
+  const [pending, setPending] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsPending(true);
-
-    const form = e.currentTarget;
-
+    setPending(true);
+    const form = new FormData(e.target);
+    const body = Object.fromEntries(form.entries());
     try {
-      const formData = new FormData(form);
-      const carData = Object.fromEntries(formData.entries());
-
-      const response = await fetch("http://localhost:5000/cars", {
+      const res = await fetch(`${API_URL}/cars`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(carData),
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
       });
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log("Server Response:", data);
-
-        toast.success("Car listed successfully!");
-        form.reset();
-      } else {
-        toast.error("Failed to list the car. Please try again.");
-      }
-    } catch (error) {
-      console.error("Error submitting form:", error);
-      toast.error("An error occurred while listing the car. Please try again.");
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message);
+      toast.success("Car listed successfully!");
+      e.target.reset();
+    } catch (err) {
+      toast.error(err.message || "Failed to list car");
     } finally {
-      setIsPending(false);
+      setPending(false);
     }
   };
 
   return (
-    <>
-      <section className="max-w-4xl mx-auto bg-base-100 rounded-2xl shadow-xl border border-base-200 my-12 p-8">
+    <section className="max-w-3xl mx-auto bg-base-100 rounded-2xl shadow-xl border border-base-200 my-12 p-8">
+      <h1 className="text-2xl font-bold text-center">Add a Car Listing</h1>
+      <p className="text-sm text-center text-base-content/50 mt-2 mb-8">
+        Share your vehicle with renters across Bangladesh
+      </p>
+
+      <form onSubmit={handleSubmit} className="space-y-5">
         <div>
-          <h1 className="text-2xl font-bold text-center">List a New Car</h1>
-          <p>
-            Provide your fleet information to make this vehicle availabe for
-            premium rentals across the globe. Fill out the form below to get
-            started on sharing your car with our community of travelers and earn
-            extra income while your vehicle is not in use.
-          </p>
+          <label className="label text-sm font-medium">Car Name</label>
+          <input
+            name="carName"
+            required
+            className="input input-bordered w-full rounded-xl"
+            placeholder="Toyota Premio"
+          />
         </div>
-
-        <form onSubmit={handleSubmit} className="p-10 space-y-8 mt-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="md:col-span-2">
-              <TextField name="carName" isRequired>
-                <Label>Car Model</Label>
-                <Input placeholder="Toyota Camry" className="rounded-xl" />
-                <FieldError />
-              </TextField>
-            </div>
-
-            <TextField name="brand" isRequired>
-              <Label>Brand / Manufacturer</Label>
-              <Input placeholder="Toyota" className="rounded-2xl" />
-              <FieldError className="text-xs text-error mt-1" />
-            </TextField>
-
-            <div className="flex flex-col gap-1">
-              <label className="text-sm font-medium">Category</label>
-              <select
-                name="category"
-                required
-                defaultValue=""
-                className="select select-bordered w-full rounded-xl"
-              >
-                <option value="" disabled>
-                  Select vehicle type
-                </option>
-                <option value="Sedan">Sedan</option>
-                <option value="SUV">SUV / Crossover</option>
-                <option value="Microbus">Microbus / MPV</option>
-                <option value="Luxury">Premium Luxury</option>
-                <option value="Electric">Electric / Hybrid</option>
-              </select>
-            </div>
-
-            <TextField name="pricePerDay" type="number" isRequired>
-              <Label>Rental Price Per Day (BDT)</Label>
-              <Input
-                type="number"
-                placeholder="4500"
-                min="500"
-                max="999999"
-                className="rounded-xl"
-              />
-              <FieldError className="text-xs text-error mt-1" />
-            </TextField>
-
-            <div className="flex flex-col gap-1">
-              <label className="text-sm font-medium">Fuel System</label>
-              <select
-                name="fuelType"
-                required
-                defaultValue=""
-                className="select select-bordered w-full rounded-xl"
-              >
-                <option value="" disabled>
-                  Select fuel setup
-                </option>
-                <option value="Octane">Octane / Petrol</option>
-                <option value="CNG">CNG / LPG Conversion</option>
-                <option value="Hybrid">Hybrid System</option>
-                <option value="Electric">Full Electric (EV)</option>
-              </select>
-            </div>
-
-            <TextField name="location" isRequired>
-              <Label>Pickup Location</Label>
-              <Input
-                placeholder="Dhaka, Chittagong,..."
-                className="rounded-xl"
-              />
-              <FieldError className="text-xs text-error mt-1" />
-            </TextField>
-
-            <TextField name="year" type="number" isRequired>
-              <Label>Manufacture Year</Label>
-              <Input type="number" placeholder="2022" className="rounded-xl" />
-              <FieldError className="text-xs text-error mt-1" />
-            </TextField>
-
-            <div className="md:col-span-2">
-              <TextField
-                name="imageUrl"
-                label="Vehicle Display Image URL"
-                isRequired
-                className="w-full"
-              >
-                <Label>Vehicle Display Image URL</Label>
-                <Input
-                  type="url"
-                  placeholder="https://example.com/vehicles/toyota-premio.jpg"
-                  className="rounded-xl"
-                />
-                <FieldError className="text-xs text-error mt-1" />
-              </TextField>
-            </div>
-
-            <div className="md:col-span-2">
-              <TextField
-                name="description"
-                label="Features & Rental Terms"
-                isRequired
-                className="w-full"
-              >
-                <Label>Features & Rental Terms</Label>
-                <TextArea
-                  placeholder="List key car features (e.g., Panoramic sunroof, backup camera) and specific rental guidelines..."
-                  className="rounded-xl min-h-30"
-                />
-                <FieldError className="text-xs text-error mt-1" />
-              </TextField>
-            </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div>
+            <label className="label text-sm font-medium">Daily Rent Price (BDT)</label>
+            <input
+              name="dailyRentPrice"
+              type="number"
+              min="500"
+              required
+              className="input input-bordered w-full rounded-xl"
+            />
           </div>
-
-          <div className="pt-4">
-            <Button
-              type="submit"
-              isLoading={isPending}
-              className="w-full bg-amber-500 hover:bg-amber-600 text-neutral-900 text-xl rounded-xl font-semibold h-12 shadow-md hover:shadow-lg transition-all"
+          <div>
+            <label className="label text-sm font-medium">Car Type</label>
+            <select
+              name="carType"
+              required
+              defaultValue=""
+              className="select select-bordered w-full rounded-xl"
             >
-              {isPending ? "Listing Vehicle..." : "Publish Car Listing"}
-            </Button>
+              <option value="" disabled>
+                Select type
+              </option>
+              <option value="Sedan">Sedan</option>
+              <option value="SUV">SUV</option>
+              <option value="Hatchback">Hatchback</option>
+              <option value="Luxury">Luxury</option>
+              <option value="Microbus">Microbus</option>
+              <option value="Electric">Electric</option>
+            </select>
           </div>
-        </form>
-      </section>
-    </>
+          <div>
+            <label className="label text-sm font-medium">Seat Capacity</label>
+            <input
+              name="seatCapacity"
+              type="number"
+              min="2"
+              max="50"
+              required
+              className="input input-bordered w-full rounded-xl"
+            />
+          </div>
+          <div>
+            <label className="label text-sm font-medium">Pickup Location</label>
+            <input
+              name="pickupLocation"
+              required
+              className="input input-bordered w-full rounded-xl"
+              placeholder="Dhaka, Gulshan"
+            />
+          </div>
+        </div>
+        <div>
+          <label className="label text-sm font-medium">Image URL</label>
+          <input
+            name="imageUrl"
+            type="url"
+            required
+            className="input input-bordered w-full rounded-xl"
+            placeholder="https://i.ibb.co/..."
+          />
+        </div>
+        <div>
+          <label className="label text-sm font-medium">Description</label>
+          <textarea
+            name="description"
+            required
+            className="textarea textarea-bordered w-full rounded-xl min-h-28"
+            placeholder="Features, terms, and vehicle highlights..."
+          />
+        </div>
+        <div>
+          <label className="label text-sm font-medium">Availability Status</label>
+          <select
+            name="availability"
+            defaultValue="available"
+            className="select select-bordered w-full rounded-xl"
+          >
+            <option value="available">Available</option>
+            <option value="unavailable">Unavailable</option>
+          </select>
+        </div>
+        <button
+          type="submit"
+          disabled={pending}
+          className="btn btn-primary w-full rounded-xl font-semibold"
+        >
+          {pending ? (
+            <span className="loading loading-spinner loading-sm" />
+          ) : (
+            "Publish Listing"
+          )}
+        </button>
+      </form>
+    </section>
   );
-};
+}
 
-export default AddCarPage;
+export default function AddCarPage() {
+  return (
+    <PrivateRoute>
+      <AddCarForm />
+    </PrivateRoute>
+  );
+}

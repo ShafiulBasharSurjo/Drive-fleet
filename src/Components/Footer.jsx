@@ -72,10 +72,10 @@ const Footer = () => {
             </li>
             <li>
               <Link
-                href="/my-cars"
+                href="/my-added-cars"
                 className="hover:text-primary transition-colors text-neutral-content/70"
               >
-                My Cars
+                My Added Cars
               </Link>
             </li>
           </ul>
