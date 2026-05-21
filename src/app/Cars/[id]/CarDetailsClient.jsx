@@ -14,7 +14,7 @@ export default function CarDetailsClient({ car }) {
   const available = car.availability !== "unavailable";
 
   return (
-    <main className="max-w-4xl mx-auto px-6 py-12">
+    <main className="max-w-4xl mx-auto px-6 py-11">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-9 items-start">
         <div className="rounded-2xl overflow-hidden border border-base-200 shadow-sm">
           <div className="relative w-full h-72 bg-base-200">
@@ -37,7 +37,9 @@ export default function CarDetailsClient({ car }) {
             </div>
             <div className="flex flex-col items-center py-4 gap-1">
               <IoCalendarOutline size={20} className="text-primary" />
-              <span className="text-xs font-medium">{car.seatCapacity || "—"}</span>
+              <span className="text-xs font-medium">
+                {car.seatCapacity || "—"}
+              </span>
               <span className="text-xs text-base-content/40">Seats</span>
             </div>
             <div className="flex flex-col items-center py-4 gap-1">
@@ -102,7 +104,11 @@ export default function CarDetailsClient({ car }) {
             {available ? (
               <BookingModal car={car} />
             ) : (
-              <button type="button" className="btn btn-disabled flex-1" disabled>
+              <button
+                type="button"
+                className="btn btn-disabled flex-1"
+                disabled
+              >
                 Currently Unavailable
               </button>
             )}
