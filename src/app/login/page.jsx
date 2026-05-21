@@ -26,7 +26,7 @@ export default function LoginPage() {
     try {
       await login(form.get("email"), form.get("password"));
       toast.success("Welcome back to DriveFleet!");
-      router.push("/");
+      router.replace("/");
     } catch (err) {
       setError(err.message);
       toast.error(err.message);

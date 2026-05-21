@@ -22,11 +22,16 @@ function validatePassword(password) {
 }
 
 export default function RegisterPage() {
-  const { register } = useAuth();
+  const { register, user, loading } = useAuth();
   const router = useRouter();
   const [pending, setPending] = useState(false);
   const [pwdErrors, setPwdErrors] = useState([]);
   const [formError, setFormError] = useState("");
+
+  if (!loading && user) {
+    router.replace("/");
+    return null;
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
