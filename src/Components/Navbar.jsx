@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import logo from "../../public/Assets/logo.png";
 const Navbar = () => {
-  const isLoggedIn = false;
+  const isLoggedIn = true;
   return (
     <>
       <nav>

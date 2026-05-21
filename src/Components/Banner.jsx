@@ -38,7 +38,7 @@ const Banner = () => {
         <div>
           <div className="inline-flex items-center gap-2 border border-primary/30 bg-primary/10 text-primary text-xs font-semibold uppercase tracking-widest px-4 py-1.5 rounded-full mb-6">
             <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-            Premium Car Rental — Bangladesh
+            Premium Car Rentals
           </div>
 
           <h1 className="text-4xl sm:text-5xl font-bold leading-tight tracking-tight mb-5">
@@ -65,8 +65,9 @@ const Banner = () => {
 
           <p className="text-neutral-content/60 text-base leading-relaxed max-w-md mb-8">
             Explore our curated fleet of premium vehicles. Affordable daily
-            rates, flexible pickups, and a seamless booking experience —
-            wherever the road takes you.
+            rates, flexible pickups, and a seamless booking experience designed
+            to get you on the road faster. Your next adventure starts here –
+            where luxury meets convenience.
           </p>
 
           <div className="flex flex-wrap gap-4 mb-8">
