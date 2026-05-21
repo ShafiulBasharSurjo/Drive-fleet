@@ -24,7 +24,7 @@ function MyAddedCarsContent() {
       <h1 className="text-3xl font-bold tracking-tight">
         My Added <span className="text-primary">Cars</span>
       </h1>
-      <p className="text-sm text-base-content/50 mt-1 mb-8">
+      <p className="text-sm text-base-content/50 mt-1.5 mb-8">
         Edit or remove vehicles you have listed on DriveFleet
       </p>
 
@@ -55,7 +55,9 @@ function MyAddedCarsContent() {
                   prev.map((c) => (c._id === updated._id ? updated : c)),
                 )
               }
-              onDeleted={(id) => setCars((prev) => prev.filter((c) => c._id !== id))}
+              onDeleted={(id) =>
+                setCars((prev) => prev.filter((c) => c._id !== id))
+              }
             />
           ))}
         </div>
