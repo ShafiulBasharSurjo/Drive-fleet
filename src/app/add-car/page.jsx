@@ -17,27 +17,34 @@ const AddCarPage = () => {
     e.preventDefault();
     setIsPending(true);
 
-    const formData = new FormData(e.currentTarget);
-    const carData = Object.fromEntries(formData.entries());
+    const form = e.currentTarget;
 
-    console.log("Car Data Submitted:", carData);
+    try {
+      const formData = new FormData(form);
+      const carData = Object.fromEntries(formData.entries());
 
-    const response = await fetch("http://localhost:5000/cars", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(carData),
-    });
+      const response = await fetch("http://localhost:5000/cars", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(carData),
+      });
 
-    if (response.ok) {
-      const data = await response.json();
-      console.log("Server Response:", data);
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Server Response:", data);
 
-      toast.success("Car listed successfully!");
-      e.currentTarget.reset();
-    } else {
-      toast.error("Failed to list the car. Please try again.");
+        toast.success("Car listed successfully!");
+        form.reset();
+      } else {
+        toast.error("Failed to list the car. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      toast.error("An error occurred while listing the car. Please try again.");
+    } finally {
+      setIsPending(false);
     }
   };
 
@@ -128,12 +135,7 @@ const AddCarPage = () => {
               <FieldError className="text-xs text-error mt-1" />
             </TextField>
 
-            <TextField
-              name="year"
-              type="number"
-              label="Manufacture Year"
-              isRequired
-            >
+            <TextField name="year" type="number" isRequired>
               <Label>Manufacture Year</Label>
               <Input type="number" placeholder="2022" className="rounded-xl" />
               <FieldError className="text-xs text-error mt-1" />
@@ -177,7 +179,7 @@ const AddCarPage = () => {
             <Button
               type="submit"
               isLoading={isPending}
-              className="w-full btn bg-amber-500 hover:bg-amber-600 text-neutral-900 text-xl rounded-xl font-semibold h-12 shadow-md hover:shadow-lg transition-all"
+              className="w-full bg-amber-500 hover:bg-amber-600 text-neutral-900 text-xl rounded-xl font-semibold h-12 shadow-md hover:shadow-lg transition-all"
             >
               {isPending ? "Listing Vehicle..." : "Publish Car Listing"}
             </Button>
