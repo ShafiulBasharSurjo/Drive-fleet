@@ -78,7 +78,10 @@ export function BookingModal({ car }) {
                 </p>
               </div>
               <form method="dialog">
-                <button type="submit" className="btn btn-sm btn-circle btn-ghost">
+                <button
+                  type="submit"
+                  className="btn btn-sm btn-circle btn-ghost"
+                >
                   ✕
                 </button>
               </form>

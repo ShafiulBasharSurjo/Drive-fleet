@@ -4,7 +4,14 @@ import { useCallback, useEffect, useState } from "react";
 import CarCard from "@/Components/CarCard";
 import { API_URL } from "@/lib/api";
 
-const CAR_TYPES = ["Sedan", "SUV", "Hatchback", "Luxury", "Microbus", "Electric"];
+const CAR_TYPES = [
+  "Sedan",
+  "SUV",
+  "Hatchback",
+  "Luxury",
+  "Microbus",
+  "Electric",
+];
 
 export default function ExploreCarsPage() {
   const [cars, setCars] = useState([]);
@@ -48,7 +55,7 @@ export default function ExploreCarsPage() {
           placeholder="Search by car name..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="input input-bordered flex-1 rounded-xl"
+          className="input input-bordered flex-1 rounded-xl text-amber-400"
         />
         <select
           value={type}

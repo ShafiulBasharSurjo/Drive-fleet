@@ -8,6 +8,10 @@ import logo from "../../public/Assets/logo.png";
 export default function Navbar() {
   const { user, loading, logout } = useAuth();
 
+  const handleLogout = async () => {
+    await logout();
+  };
+
   return (
     <nav className="navbar bg-base-100 shadow-sm sticky top-0 z-50 px-4 lg:px-8">
       <div className="navbar-start">
@@ -54,8 +58,14 @@ export default function Navbar() {
           </ul>
         </div>
         <Link href="/" className="flex items-center gap-2">
-          <div className="w-10 rounded-full overflow-hidden">
-            <Image alt="DriveFleet logo" src={logo} width={40} height={40} />
+          <div className="relative w-10 h-10 rounded-full overflow-hidden shrink-0">
+            <Image
+              alt="DriveFleet logo"
+              src={logo}
+              width={40}
+              height={40}
+              className="object-cover h-auto w-full"
+            />
           </div>
           <h2 className="text-xl font-bold tracking-tight hidden sm:block">
             Drive<span className="text-primary">Fleet</span>
@@ -100,8 +110,14 @@ export default function Navbar() {
               className="btn btn-ghost btn-circle avatar border border-base-300"
             >
               {user.photoURL ? (
-                <div className="w-10 rounded-full overflow-hidden">
-                  <Image src={user.photoURL} alt={user.name} />
+                <div className="relative w-10 h-10 rounded-full overflow-hidden">
+                  <Image
+                    src={user.photoURL}
+                    alt={user.name || "Profile"}
+                    width={40}
+                    height={40}
+                    className="object-cover"
+                  />
                 </div>
               ) : (
                 <div className="w-10 rounded-full bg-primary/20 flex items-center justify-center font-bold text-primary">
@@ -124,7 +140,7 @@ export default function Navbar() {
                 <Link href="/my-added-cars">My Added Cars</Link>
               </li>
               <li>
-                <button type="button" onClick={() => logout()}>
+                <button type="button" onClick={handleLogout}>
                   Logout
                 </button>
               </li>

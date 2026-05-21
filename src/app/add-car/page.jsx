@@ -50,7 +50,9 @@ function AddCarForm() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           <div>
-            <label className="label text-sm font-medium">Daily Rent Price (BDT)</label>
+            <label className="label text-sm font-medium">
+              Daily Rent Price (BDT)
+            </label>
             <input
               name="dailyRentPrice"
               type="number"
@@ -119,7 +121,9 @@ function AddCarForm() {
           />
         </div>
         <div>
-          <label className="label text-sm font-medium">Availability Status</label>
+          <label className="label text-sm font-medium">
+            Availability Status
+          </label>
           <select
             name="availability"
             defaultValue="available"

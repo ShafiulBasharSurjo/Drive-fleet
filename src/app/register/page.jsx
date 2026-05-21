@@ -26,27 +26,32 @@ export default function RegisterPage() {
   const router = useRouter();
   const [pending, setPending] = useState(false);
   const [pwdErrors, setPwdErrors] = useState([]);
+  const [formError, setFormError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const form = new FormData(e.target);
+    setFormError("");
+
+    const form = new FormData(e.currentTarget);
     const password = form.get("password");
     const errors = validatePassword(password);
     setPwdErrors(errors);
-    if (errors.length) return;
+    if (errors.length > 0) return;
 
     setPending(true);
     try {
       await register({
         name: form.get("name"),
         email: form.get("email"),
-        photoURL: form.get("photoURL"),
+        photoURL: form.get("photoURL") || "",
         password,
       });
       toast.success("Account created! Please log in.");
       router.push("/login");
     } catch (err) {
-      toast.error(err.message);
+      const message = err.message || "Registration failed";
+      setFormError(message);
+      toast.error(message);
     } finally {
       setPending(false);
     }
@@ -60,13 +65,17 @@ export default function RegisterPage() {
           Join DriveFleet to rent or list premium vehicles
         </p>
 
+        {formError && (
+          <div className="alert alert-error text-sm mb-4 py-2">{formError}</div>
+        )}
+
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="label text-sm font-medium">Name</label>
             <input
               name="name"
               required
-              className="input input-bordered w-full rounded-xl"
+              className="input input-bordered w-full rounded-xl text-amber-400"
               placeholder="Your full name"
             />
           </div>
@@ -76,7 +85,8 @@ export default function RegisterPage() {
               name="email"
               type="email"
               required
-              className="input input-bordered w-full rounded-xl"
+              className="input input-bordered w-full rounded-xl text-amber-400"
+              placeholder="you@email.com"
             />
           </div>
           <div>
@@ -84,7 +94,7 @@ export default function RegisterPage() {
             <input
               name="photoURL"
               type="url"
-              className="input input-bordered w-full rounded-xl"
+              className="input input-bordered w-full rounded-xl text-amber-400"
               placeholder="https://..."
             />
           </div>
@@ -94,20 +104,20 @@ export default function RegisterPage() {
               name="password"
               type="password"
               required
-              className="input input-bordered w-full rounded-xl"
+              className="input input-bordered w-full rounded-xl text-amber-400"
               onChange={(e) => setPwdErrors(validatePassword(e.target.value))}
             />
             {pwdErrors.length > 0 && (
               <ul className="text-xs text-error mt-2 list-disc list-inside">
-                {pwdErrors.map((e) => (
-                  <li key={e}>{e}</li>
+                {pwdErrors.map((msg) => (
+                  <li key={msg}>{msg}</li>
                 ))}
               </ul>
             )}
           </div>
           <button
             type="submit"
-            disabled={pending || pwdErrors.length > 0}
+            disabled={pending}
             className="btn btn-primary w-full rounded-xl font-semibold"
           >
             {pending ? (

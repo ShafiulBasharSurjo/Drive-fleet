@@ -64,7 +64,7 @@ export default function LoginPage() {
               name="password"
               type="password"
               required
-              className="input input-bordered w-full rounded-xl"
+              className="input input-bordered w-full rounded-xl text-amber-400"
               placeholder="••••••••"
             />
           </div>

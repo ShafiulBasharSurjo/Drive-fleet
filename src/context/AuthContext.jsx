@@ -1,6 +1,12 @@
 "use client";
 
-import { createContext, useCallback, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { apiFetch, API_URL } from "@/lib/api";
 
 const AuthContext = createContext(null);
@@ -59,7 +65,15 @@ export function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider
-      value={{ user, loading, login, register, googleLogin, logout, refreshUser }}
+      value={{
+        user,
+        loading,
+        login,
+        register,
+        googleLogin,
+        logout,
+        refreshUser,
+      }}
     >
       {children}
     </AuthContext.Provider>
