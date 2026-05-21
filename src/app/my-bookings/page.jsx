@@ -36,7 +36,7 @@ function MyBookingsContent() {
 
       {!loading && bookings.length === 0 && (
         <div className="text-center py-20 text-base-content/50">
-          <p className="mb-4">No bookings yet.</p>
+          <p className="mb-3.5">No bookings yet.</p>
           <Link href="/cars" className="btn btn-primary btn-sm">
             Explore Cars
           </Link>
