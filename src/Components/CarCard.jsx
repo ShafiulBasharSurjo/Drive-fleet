@@ -150,7 +150,7 @@ export default function CarCard({
                   name="dailyRentPrice"
                   type="number"
                   defaultValue={price}
-                  className="input input-bordered w-full rounded-xl"
+                  className="input input-bordered w-full rounded-xl text-amber-400"
                   required
                 />
               </div>
@@ -170,11 +170,11 @@ export default function CarCard({
                 </select>
               </div>
               <div>
-                <label className="label text-sm">Pickup location</label>
+                <label className="label text-sm ">Pickup location</label>
                 <input
                   name="pickupLocation"
                   defaultValue={location}
-                  className="input input-bordered w-full rounded-xl"
+                  className="input input-bordered w-full rounded-xl text-base-content"
                 />
               </div>
               <div>
@@ -182,7 +182,7 @@ export default function CarCard({
                 <input
                   name="imageUrl"
                   defaultValue={car.imageUrl}
-                  className="input input-bordered w-full rounded-xl"
+                  className="input input-bordered w-full rounded-xl text-base-content"
                 />
               </div>
               <div>

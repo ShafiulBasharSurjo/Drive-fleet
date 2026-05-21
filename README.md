@@ -1,55 +1,28 @@
-# DriveFleet — Premium Car Rental Platform
+DriveFleet is a production-grade, full-stack car rental application offering seamless vehicle discovery, modern scheduling systems, and interactive fleet management dashboards. Architected with an elegant UI, it secures user data using industry-standard JWT authentication lifecycle patterns.
 
-**Live site:** [Add your Vercel URL after deployment](https://your-drivefleet.vercel.app)
+## ✨ Features Blueprint
 
-DriveFleet is a full-stack car rental platform where users can explore vehicles, book rentals, manage listings, and authenticate securely with JWT cookies.
+### 🔐 Ironclad Security & Authentication
+* **HTTP-Only Cookies:** Hybrid authorization using stateless JSON Web Tokens (JWT) mapped securely inside HTTP-only cookies to eliminate XSS vulnerability vectors.
+* **Social Integration:** Single-tap Google Sign-In pipeline powered by official `google-auth-library` handshakes.
+* **Data Privacy:** Local profile records are encrypted natively on creation via `bcrypt` hashing rounds.
 
-## Features
+### 🔍 Fleet Intelligence Engine
+* **Contextual Search:** Instant matching engines filtering listings natively via text parameters utilizing database-side MongoDB `$regex` tokens.
+* **Multi-Criteria Queries:** Dynamic categorization matrices filtering options down to custom type arrays leveraging optimized `$in` logical expressions.
+* **Live Counters:** High-concurrency booking metrics using sequential transactional updates via MongoDB atomic `$inc` operators.
 
-- **Secure authentication** — Email/password registration with validation, JWT stored in HTTP-only cookies, and Google sign-in
-- **Explore & search fleet** — Browse all listings, search by car name (`$regex`), and filter by vehicle type (`$in`)
-- **Book with confidence** — Modal booking flow with driver option, special notes, and automatic `booking_count` increment via MongoDB `$inc`
-- **Owner dashboard** — Add, update, and delete your own car listings with confirmation modals
-- **My Bookings** — View rental history with total price, linked booking dates, and trip details
-- **Responsive luxury UI** — Mobile, tablet, and desktop layouts with DaisyUI, consistent branding, and custom 404 page
+### 👔 Executive Portfolios & Dashboards
+* **Vehicle Studio:** Dedicated client workspace designed to register, modify, or eliminate listings safely via secondary confirmation modal guards.
+* **Reservation Ledgers:** Historical logging tables detailing aggregated rental metrics, linked transactional calendars, and localized trip breakdowns.
+* **Modern Luxury UI:** High-fidelity presentation layers crafted using Tailwind CSS 4 and DaisyUI semantic token themes featuring responsive layouts and a custom 404 router fall-through.
 
-## Tech Stack
+---
 
-- **Client:** Next.js 16, React 19, Tailwind CSS 4, DaisyUI, React Toastify
-- **Server:** Express, MongoDB, JWT, bcrypt, Google Auth Library
-- **Deploy:** Vercel (client) + Render/Railway (API)
+## 🛠️ Architecture & Tech Stack
 
-## Local Setup
-
-### Server (`driveFleet-server`)
-
-```bash
-cd driveFleet-server
-npm install
-cp .env.example .env
-# Set MONGODB_URI, JWT_SECRET, CLIENT_URL, GOOGLE_CLIENT_ID
-npm run dev
-```
-
-### Client (`drivefleet`)
-
-```bash
-cd drivefleet
-npm install
-cp .env.example .env.local
-# Set NEXT_PUBLIC_API_URL and NEXT_PUBLIC_GOOGLE_CLIENT_ID
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000).
-
-## Deployment Notes
-
-1. Set `CLIENT_URL` on the server to your Vercel domain (e.g. `https://drivefleet.vercel.app`).
-2. Set `NEXT_PUBLIC_API_URL` on Vercel to your Render API URL.
-3. Use the same Google OAuth client ID on both sides; add authorized origins for production URLs.
-4. Enable `credentials: true` CORS — already configured on the API.
-
-## Assignment
-
-CAT_05 — DriveFleet Car Rental Platform (Programming Hero)
+```mermaid
+graph LR
+    A[Next.js Client via Vercel] <-->|HTTPS / Credentials HTTP-Only| B[Express.js Server via Render]
+    B <-->|Mongoose Driver Driver| C[MongoDB Atlas Cloud]
+    A <-->|OAuth Handshake| D[Google Auth API]

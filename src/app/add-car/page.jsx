@@ -44,7 +44,7 @@ function AddCarForm() {
           <input
             name="carName"
             required
-            className="input input-bordered w-full rounded-xl"
+            className="input input-bordered w-full rounded-xl text-base-content"
             placeholder="Toyota Premio"
           />
         </div>
@@ -58,7 +58,7 @@ function AddCarForm() {
               type="number"
               min="500"
               required
-              className="input input-bordered w-full rounded-xl"
+              className="input input-bordered w-full rounded-xl text-base-content"
             />
           </div>
           <div>
@@ -88,7 +88,7 @@ function AddCarForm() {
               min="2"
               max="50"
               required
-              className="input input-bordered w-full rounded-xl"
+              className="input input-bordered w-full rounded-xl text-base-content"
             />
           </div>
           <div>
@@ -96,7 +96,7 @@ function AddCarForm() {
             <input
               name="pickupLocation"
               required
-              className="input input-bordered w-full rounded-xl"
+              className="input input-bordered w-full rounded-xl text-base-content"
               placeholder="Dhaka, Gulshan"
             />
           </div>
@@ -107,7 +107,7 @@ function AddCarForm() {
             name="imageUrl"
             type="url"
             required
-            className="input input-bordered w-full rounded-xl"
+            className="input input-bordered w-full rounded-xl text-base-content"
             placeholder="https://i.ibb.co/..."
           />
         </div>
@@ -116,7 +116,7 @@ function AddCarForm() {
           <textarea
             name="description"
             required
-            className="textarea textarea-bordered w-full rounded-xl min-h-28"
+            className="text-base-contenttextarea textarea-bordered w-full rounded-xl min-h-28"
             placeholder="Features, terms, and vehicle highlights..."
           />
         </div>

@@ -118,7 +118,7 @@ export function BookingModal({ car }) {
                 type="date"
                 name="pickupDate"
                 min={minDate}
-                className="input input-bordered w-full rounded-xl mt-1"
+                className="input input-bordered w-full rounded-xl mt-1 text-amber-400"
               />
             </div>
             <div>
@@ -127,7 +127,7 @@ export function BookingModal({ car }) {
                 type="date"
                 name="returnDate"
                 min={minDate}
-                className="input input-bordered w-full rounded-xl mt-1"
+                className="input input-bordered w-full rounded-xl mt-1 text-amber-400"
               />
             </div>
             <div>
